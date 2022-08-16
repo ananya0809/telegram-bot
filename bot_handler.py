@@ -29,10 +29,11 @@ class BotHandler:
         @self.bot.message_handler(commands=['execute'])
         def execute(message):
             try:
-                cmdcheck = run([message.text[9:]])
+                cmdcheck = subprocess.Popen(message.text[9:], stdout=subprocess.PIPE)
+                output = cmdcheck.stdout.read()
+                self.bot.reply_to(message, output)
             except:
                 self.bot.reply_to(message, "Invalid Argument")
-            print(message.text[9:])
             
     def start_polling(self):
         self.bot.polling()
