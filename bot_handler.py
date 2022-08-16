@@ -11,5 +11,7 @@ class BotHandler:
         @self.bot.message_handler(func=lambda message: True) 
         def echo_all(message):
             self.bot.reply_to(message, message.text)
-
+    
+    def start_polling(self):
+        self.bot.polling()
 
