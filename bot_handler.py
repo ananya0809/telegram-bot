@@ -1,4 +1,7 @@
+from email import message
 import telebot
+import subprocess
+from subprocess import run
 
 class BotHandler:
     def __init__(self, apikey):
@@ -22,6 +25,15 @@ class BotHandler:
         def get(message):
             self.bot.reply_to(message, self.num)
     
+    def check_cmd(self):
+        @self.bot.message_handler(commands=['execute'])
+        def execute(message):
+            try:
+                cmdcheck = run([message.text[9:]])
+            except:
+                self.bot.reply_to(message, "Invalid Argument")
+            print(message.text[9:])
+            
     def start_polling(self):
         self.bot.polling()
 
