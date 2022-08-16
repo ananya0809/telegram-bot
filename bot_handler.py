@@ -1,2 +1,5 @@
+import telebot
+
 class BotHandler:
-    pass
+    def __init__(self, apikey):
+        self.bot = telebot.TeleBot(apikey, parse_mode=None)
