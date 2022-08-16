@@ -12,9 +12,12 @@ class BotHandler:
     def set_and_get(self):
         @self.bot.message_handler(commands=['set'])
         def set(message):
-            self.bot.reply_to(message, "OK" )
-            self.num = message.text[4:]
-            print(self.num)
+            try:
+                self.num = int(message.text[4:])
+                self.bot.reply_to(message, "OK" )
+            except ValueError:
+                self.bot.reply_to(message, "Please enter a number")
+
         @self.bot.message_handler(commands=['get'])
         def get(message):
             self.bot.reply_to(message, self.num)
