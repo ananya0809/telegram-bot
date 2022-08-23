@@ -1,7 +1,5 @@
-from email import message
 import telebot
-import subprocess
-from subprocess import run
+from command_handler import CommandHandler
 
 class BotHandler:
     def __init__(self, apikey):
@@ -28,12 +26,12 @@ class BotHandler:
     def check_cmd(self):
         @self.bot.message_handler(commands=['execute'])
         def execute(message):
-            try:
-                cmdcheck = subprocess.Popen(message.text[9:], stdout=subprocess.PIPE)
-                output = cmdcheck.stdout.read()
-                self.bot.reply_to(message, output)
-            except:
-                self.bot.reply_to(message, "Invalid Argument")
+            linuxcommand = message.text[9:] 
+            danger = CommandHandler().check_dangerous_command(linuxcommand)
+            if danger == True:
+                self.bot.reply_to(message, "Dangerous Command")
+            else:
+                self.bot.reply_to(message, CommandHandler().get_command_result(message.text[9:]))
             
     def start_polling(self):
         self.bot.polling()
