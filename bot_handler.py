@@ -31,7 +31,7 @@ class BotHandler:
             if danger == True:
                 self.bot.reply_to(message, "Dangerous Command")
             else:
-                self.bot.reply_to(message, CommandHandler().get_command_result(message.text[9:]))
+                self.bot.reply_to(message, CommandHandler().get_command_result(linuxcommand))
             
     def start_polling(self):
         self.bot.polling()
