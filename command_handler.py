@@ -17,7 +17,7 @@ class CommandHandler:
         except:
             return "Invalid Argument"
     def check_dangerous_command(self, command):
-        dangerous_commands = ['pwd']
+        dangerous_commands = ['rm', 'sudo', 'su', 'mv']
         for danger in dangerous_commands:
             if command == danger:
                 return True
